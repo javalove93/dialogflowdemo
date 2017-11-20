@@ -100,14 +100,15 @@ def myintent_test(parameters, contexts):
 
 def list_smartphone_model(parameters, contexts):
     with open('model.csv', 'rb') as csvfile:
-        rows = csv.reader(csvfile, delimiter=',', quotechar='\'')
+        rows = csv.reader(csvfile, delimiter=',', quotechar='"')
 
 	models = []
+	brand = parameters['brand']
         for line in rows:
-		models.append(line[0])
-
-	if parameters['brand'] == 'apple':
-		models = ['iPhone 8', 'iPhone 9', 'iPhone X']
+		print line[0], brand, line[0].startswith(brand)
+		if line[0].startswith(brand):
+			models.append(line[0])
+			print line[0]
 
 	txt = 'This is ' + parameters['product-smartphone'] +' list for ' + parameters['brand'] + '.\nWhich model do you want?'
 
@@ -120,7 +121,7 @@ def list_smartphone_model(parameters, contexts):
 
 def list_others(parameters, contexts):
     with open('category.csv', 'rb') as csvfile:
-        rows = csv.reader(csvfile, delimiter=',', quotechar='\'')
+        rows = csv.reader(csvfile, delimiter=',', quotechar='"')
 
 	models = []
         for line in rows:
